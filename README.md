@@ -1,4 +1,4 @@
-[![Run App](https://github.com/kgerot/GithubActions/actions/workflows/run-app.yaml/badge.svg)](https://github.com/kgerot/GithubActions/actions/workflows/run-app.yaml)
+[![Run App Akemi Martinez](https://github.com/akemimg/GithubActions/actions/workflows/run-app.yaml/badge.svg)](https://github.com/akemimg/GithubActions/actions/workflows/run-app.yaml)
 
 # Do not submit a pull request to `kgerot/GithubActions` or `dteske/TraviCI`. Not following this instruction can ruin the lab for others, so pay attention.
 
@@ -144,3 +144,4 @@ In GitHub, that will look like the following:
 ![pr overview passed](./img/passed-pull.PNG)
 
 If everything passes, feel free to merge. You are now using CI.
+
