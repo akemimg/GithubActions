@@ -1,10 +1,22 @@
-name: 'Basic Action'
+name: 'Run Tests and CI Pipeline'
 
 on: [push]
 
 jobs:
-  check-bats-version:
+  run-tests:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Basic Action
-        run: echo "Hello, World!"
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npm test
