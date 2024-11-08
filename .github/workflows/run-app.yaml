@@ -3,19 +3,29 @@ name: 'Run App Akemi Martinez'
 on: [push, pull_request]
 
 jobs:
-  check-bats-version:
+  run-tests:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-dotnet@v1
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '5.0.301'
-      - uses: nuget/setup-nuget@v1
-      - name: Nuget Restore
+          dotnet-version: '5.0.x'
+
+      - name: Set up NuGet
+        uses: nuget/setup-nuget@v3
+
+      - name: NuGet Restore
         run: nuget restore GithubActions.sln
+
       - name: Install dependencies
         run: dotnet restore GithubActions.sln
+
       - name: Build
         run: msbuild /p:Configuration=Release GithubActions.sln
+
       - name: Run Unit Tests
         run: mono ./packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./Tests/bin/Release/Tests.dll
