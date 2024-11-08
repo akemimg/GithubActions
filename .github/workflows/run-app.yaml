@@ -1,22 +1,21 @@
-name: 'Run Tests and CI Pipeline'
+name: 'Run App Akemi Martinez'
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  run-tests:
+  check-bats-version:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
         with:
-          node-version: '14'
-
+          dotnet-version: '5.0.301'
+      - uses: nuget/setup-nuget@v1
+      - name: Nuget Restore
+        run: nuget restore GithubActions.sln
       - name: Install dependencies
-        run: npm install
-
-      - name: Run unit tests
-        run: npm test
+        run: dotnet restore GithubActions.sln
+      - name: Build
+        run: msbuild /p:Configuration=Release GithubActions.sln
+      - name: Run Unit Tests
+        run: mono ./packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./Tests/bin/Release/Tests.dll
